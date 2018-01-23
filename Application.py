@@ -24,22 +24,24 @@ class Application(tk.Frame):
         self.lf_sourcedata.pack(padx=5, pady=5, fill="x")
         self.lbl_sourcedata = tk.Label(
                 self.lf_sourcedata, text="(none)")
-        self.lbl_sourcedata.pack(side="left")
+        self.lbl_sourcedata.grid(row=0, column=0, sticky="w")
         self.btn_setsourcedata = tk.Button(
                 self.lf_sourcedata, text="Change",
                 command=self.invoke_sourcedata_dialog)
-        self.btn_setsourcedata.pack(side="right")
+        self.btn_setsourcedata.grid(row=0, column=1)
+        self.lf_sourcedata.columnconfigure(0, weight=1)
 
         self.lf_outputdir = tk.LabelFrame(self, text="Output directory:",
                 padx=5, pady=5)
         self.lf_outputdir.pack(padx=5, pady=5, fill="x")
         self.lbl_outputdir = tk.Label(
                 self.lf_outputdir, text=self.outfile_path)
-        self.lbl_outputdir.pack(side="left")
+        self.lbl_outputdir.grid(row=0, column=0, sticky="w")
         self.btn_setoutputdir = tk.Button(
                 self.lf_outputdir, text="Change",
                 command=self.invoke_setoutputdir_dialog)
-        self.btn_setoutputdir.pack(side="right")
+        self.btn_setoutputdir.grid(row=0, column=1)
+        self.lf_outputdir.columnconfigure(0, weight=1)
 
         self.btn_quit = tk.Button(
                 self, text="EXIT", command=self.master.destroy)
