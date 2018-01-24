@@ -25,25 +25,27 @@ def import_CSV_data_from_file(filename, separator=",", comment_token=None):
     line_number = 0
 
     with open(filename, "r") as csv_file:
-        line_number += 1
-        line = csv_file.readline()
+        for line in csv_file:
+            line_number += 1
 
-        # Removes the comment (if applicable),
-        # then strips the raw line of all the prefixing/trailing whitespace:
-        line = line.split(comment_token)[0].strip()
+            # Removes the comment (if applicable),
+            # then strips the raw line of all the prefixing/trailing whitespace:
+            line = line.split(comment_token)[0].strip()
 
-        # Checks file sanity: the number of separators in this line
-        # has to match the number of separators seen in the previous lines:
-        separators_count = line.count(separator)
-        if separators_count != assumed_separators_count:
-            if assumed_separators_count == None:
-                assumed_separators_count = separators_count
-            else:
-                msg = "File {} in line #{}: Wrong number of separators ".format(
-                        filename, line_number)
-                msg += "(expected: {}, got: {}).".format(
-                        assumed_separators_count, separators_count)
-                raise RuntimeError(msg)
-        fields = line.split(separator)
-        result.append(fields)
+            if len(line) > 0:
+                # Checks file sanity: the number of separators in this line
+                # has to match the number of separators seen in the previous lines:
+                separators_count = line.count(separator)
+                if separators_count != assumed_separators_count:
+                    if assumed_separators_count == None:
+                        assumed_separators_count = separators_count
+                    else:
+                        msg = "File {} in line #{}: Wrong number of ".format(
+                                filename, line_number)
+                        msg += "separators (expected: {}, got: {}).".format(
+                                assumed_separators_count, separators_count)
+                        raise RuntimeError(msg)
+                fields = line.split(separator)
+                print(fields)
+                result.append(fields)
     return result

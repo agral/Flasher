@@ -1,7 +1,9 @@
 import tkinter as tk
 from tkinter import filedialog
+from tkinter import messagebox
 
 from Config import Config
+from Utils import *
 
 
 class Application(tk.Frame):
@@ -10,6 +12,7 @@ class Application(tk.Frame):
 
         self.sourcedata_path = None
         self.outfile_path = Config.DIR_OUTPUT_DEFAULT
+        self.raw_data = []
 
         master.minsize(
                 width=Config.MAIN_WINDOW_WIDTH,
@@ -29,6 +32,10 @@ class Application(tk.Frame):
                 self.lf_sourcedata, text="Change",
                 command=self.invoke_sourcedata_dialog)
         self.btn_setsourcedata.grid(row=0, column=1)
+        self.btnimport = tk.Button(
+                self.lf_sourcedata, text="Import",
+                command=self.invoke_import)
+        self.btnimport.grid(row=0, column=2)
         self.lf_sourcedata.columnconfigure(0, weight=1)
 
         self.lf_outputdir = tk.LabelFrame(self, text="Output directory:",
@@ -62,3 +69,13 @@ class Application(tk.Frame):
                 initialdir = self.outfile_path,
                 title = "Select output directory")
         self.lbl_outputdir["text"] = self.outfile_path or "(none)"
+
+
+    def invoke_import(self):
+        if self.sourcedata_path is None:
+            tk.messagebox.showinfo("Failure", "Please select the input file first.")
+        else:
+            self.raw_data = import_CSV_data_from_file(
+                    self.sourcedata_path, separator="|", comment_token="#")
+            tk.messagebox.showinfo("Success", "Successfully imported {} records.".format(
+                len(self.raw_data)))
