@@ -7,6 +7,8 @@ class Config:
     DIR_HOME = os.path.expanduser("~")
     DIR_APP_ROOT = os.path.dirname(os.path.realpath(__file__))
 
+    DIR_INPUT_DEFAULT = os.path.join(DIR_APP_ROOT, "in")
+
     DEFAULT_PDF_FILENAME = "output.pdf"
     DIR_OUTPUT_DEFAULT = os.path.join(DIR_APP_ROOT, "out")
     def __init__(self):

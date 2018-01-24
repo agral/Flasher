@@ -50,7 +50,7 @@ class Application(tk.Frame):
 
     def invoke_sourcedata_dialog(self):
         self.sourcedata_path = tk.filedialog.askopenfilename(
-                initialdir = Config.DIR_APP_ROOT,
+                initialdir = Config.DIR_INPUT_DEFAULT,
                 title = "Select source data file",
                 filetypes = (("CSV files", "*.csv"), ("All files", "*.*"))
         )
