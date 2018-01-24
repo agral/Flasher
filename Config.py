@@ -11,5 +11,6 @@ class Config:
 
     DEFAULT_PDF_FILENAME = "output.pdf"
     DIR_OUTPUT_DEFAULT = os.path.join(DIR_APP_ROOT, "out")
+
     def __init__(self):
         pass
