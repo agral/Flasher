@@ -81,7 +81,7 @@ class Application(tk.Frame):
         self.edt_pagegeometry_width_text.set(Config.DEFAULT_PAGE_WIDTH_MM)
         self.lbl_pagegeometry_width_mm = tk.Label(
                 self.lf_pagegeometry, text="mm")
-        self.lbl_pagegeometry_width.grid(row=0, column=0)
+        self.lbl_pagegeometry_width.grid(row=0, column=0, sticky="w")
         self.edt_pagegeometry_width.grid(row=0, column=1)
         self.lbl_pagegeometry_width_mm.grid(row=0, column=2)
 
@@ -95,7 +95,7 @@ class Application(tk.Frame):
         self.edt_pagegeometry_height_text.set(Config.DEFAULT_PAGE_HEIGHT_MM)
         self.lbl_pagegeometry_height_mm = tk.Label(
                 self.lf_pagegeometry, text="mm")
-        self.lbl_pagegeometry_height.grid(row=1, column=0)
+        self.lbl_pagegeometry_height.grid(row=1, column=0, sticky="w")
         self.edt_pagegeometry_height.grid(row=1, column=1)
         self.lbl_pagegeometry_height_mm.grid(row=1, column=2)
 
@@ -116,7 +116,7 @@ class Application(tk.Frame):
         self.edt_cardgeometry_width_text.set(Config.DEFAULT_CARD_WIDTH_MM)
         self.lbl_cardgeometry_width_mm = tk.Label(
                 self.lf_cardgeometry, text="mm")
-        self.lbl_cardgeometry_width.grid(row=0, column=0)
+        self.lbl_cardgeometry_width.grid(row=0, column=0, sticky="w")
         self.edt_cardgeometry_width.grid(row=0, column=1)
         self.lbl_cardgeometry_width_mm.grid(row=0, column=2)
 
@@ -130,7 +130,7 @@ class Application(tk.Frame):
         self.edt_cardgeometry_height_text.set(Config.DEFAULT_CARD_HEIGHT_MM)
         self.lbl_cardgeometry_height_mm = tk.Label(
                 self.lf_cardgeometry, text="mm")
-        self.lbl_cardgeometry_height.grid(row=1, column=0)
+        self.lbl_cardgeometry_height.grid(row=1, column=0, sticky="w")
         self.edt_cardgeometry_height.grid(row=1, column=1)
         self.lbl_cardgeometry_height_mm.grid(row=1, column=2)
 
