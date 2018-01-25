@@ -134,6 +134,14 @@ class Application(tk.Frame):
         self.edt_cardgeometry_height.grid(row=1, column=1)
         self.lbl_cardgeometry_height_mm.grid(row=1, column=2)
 
+        # Adds the button to recalculate the geometry:
+        self.btn_recalculate = tk.Button(
+                self.lf_layoutsetup, text="Recalculate",
+                command=self.recalculate_and_update_geometry
+        )
+        self.btn_recalculate.grid(row=0, column=2, sticky="nesw")
+
+
         self.btn_quit = tk.Button(
                 self, text="EXIT",
                 command=self.master.destroy
@@ -171,3 +179,48 @@ class Application(tk.Frame):
                     "Successfully imported {} records.".format(
                             len(self.raw_data))
             )
+
+    def recalculate_and_update_geometry(self):
+        pw = self.edt_pagegeometry_width_text.get()
+        ph = self.edt_pagegeometry_height_text.get()
+        cw = self.edt_cardgeometry_width_text.get()
+        ch = self.edt_cardgeometry_height_text.get()
+
+        ipw = iph = icw = ich = 0
+
+        # Performs sanity-checks - all the numbers should be positive integers:
+        try:
+            if not pw.isdigit() or not pw.isdigit():
+                raise ValueError()
+            ipw = int(pw)
+            iph = int(ph)
+        except ValueError:
+            tk.messagebox.showerror(
+                    "Value error",
+                    "Incorrect value for page width or height"
+            )
+            return
+
+        try:
+            if not cw.isdigit() or not ch.isdigit():
+                raise ValueError()
+            icw = int(cw)
+            ich = int(ch)
+        except ValueError:
+            tk.messagebox.showerror(
+                    "Value error",
+                    "Incorrect value for card width or height"
+            )
+            return
+
+        if icw > ipw or ich > iph:
+            tk.messagebox.showerror(
+                    "Dimension error",
+                    "Card dimensions exceed page dimensions"
+            )
+            return
+
+        Config.PAGE_WIDTH_MM = ipw
+        Config.PAGE_HEIGHT_MM = iph
+        Config.CARD_WIDTH_MM = icw
+        Config.CARD_HEIGHT_MM = ich
