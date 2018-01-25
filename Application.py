@@ -69,7 +69,7 @@ class Application(tk.Frame):
                 self.lf_layoutsetup, text="Page geometry",
                 padx=3, pady=3
         )
-        self.lf_pagegeometry.grid(row=0, column=0)
+        self.lf_pagegeometry.grid(row=0, column=0, sticky="nw")
 
         self.lbl_pagegeometry_width = tk.Label(
                 self.lf_pagegeometry, text="Width:")
@@ -98,6 +98,41 @@ class Application(tk.Frame):
         self.lbl_pagegeometry_height.grid(row=1, column=0)
         self.edt_pagegeometry_height.grid(row=1, column=1)
         self.lbl_pagegeometry_height_mm.grid(row=1, column=2)
+
+        # Adds the "Card geometry" group to the "Geometry (...) setup" group:
+        self.lf_cardgeometry = tk.LabelFrame(
+                self.lf_layoutsetup, text="Card geometry",
+                padx=3, pady=3
+        )
+        self.lf_cardgeometry.grid(row=1, column=0, sticky="nw")
+
+        self.lbl_cardgeometry_width = tk.Label(
+                self.lf_cardgeometry, text="Width:")
+        self.edt_cardgeometry_width_text = tk.StringVar()
+        self.edt_cardgeometry_width = tk.Entry(
+                self.lf_cardgeometry,
+                textvariable=self.edt_cardgeometry_width_text,
+                width=5)
+        self.edt_cardgeometry_width_text.set(Config.DEFAULT_CARD_WIDTH_MM)
+        self.lbl_cardgeometry_width_mm = tk.Label(
+                self.lf_cardgeometry, text="mm")
+        self.lbl_cardgeometry_width.grid(row=0, column=0)
+        self.edt_cardgeometry_width.grid(row=0, column=1)
+        self.lbl_cardgeometry_width_mm.grid(row=0, column=2)
+
+        self.lbl_cardgeometry_height = tk.Label(
+                self.lf_cardgeometry, text="Height:")
+        self.edt_cardgeometry_height_text = tk.StringVar()
+        self.edt_cardgeometry_height = tk.Entry(
+                self.lf_cardgeometry,
+                textvariable=self.edt_cardgeometry_height_text,
+                width=5)
+        self.edt_cardgeometry_height_text.set(Config.DEFAULT_CARD_HEIGHT_MM)
+        self.lbl_cardgeometry_height_mm = tk.Label(
+                self.lf_cardgeometry, text="mm")
+        self.lbl_cardgeometry_height.grid(row=1, column=0)
+        self.edt_cardgeometry_height.grid(row=1, column=1)
+        self.lbl_cardgeometry_height_mm.grid(row=1, column=2)
 
         self.btn_quit = tk.Button(
                 self, text="EXIT",
