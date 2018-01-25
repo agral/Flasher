@@ -104,7 +104,7 @@ class Application(tk.Frame):
                 self.lf_layoutsetup, text="Card geometry",
                 padx=3, pady=3
         )
-        self.lf_cardgeometry.grid(row=1, column=0, sticky="nw")
+        self.lf_cardgeometry.grid(row=0, column=1, sticky="nw", padx=8)
 
         self.lbl_cardgeometry_width = tk.Label(
                 self.lf_cardgeometry, text="Width:")
