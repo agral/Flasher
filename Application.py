@@ -186,6 +186,12 @@ class Application(tk.Frame):
         self.lbl_gridlayout.grid(row=1, column=5, sticky="e")
         self.lbl_gridlayout_fixed_post.grid(row=1, column=6, sticky="w")
 
+        self.btn_golatex = tk.Button(
+                self, text="Go",
+                command=self.cb_build
+        )
+        self.btn_golatex.pack(padx=20, pady=20)
+
         self.btn_quit = tk.Button(
                 self, text="EXIT",
                 command=self.master.destroy
@@ -287,3 +293,6 @@ class Application(tk.Frame):
         self.lbl_gridlayout["text"] = "{}x{}".format(
                 Config.CARD_COLUMNS_PER_PAGE, Config.CARD_ROWS_PER_PAGE
         )
+
+    def cb_build(self):
+        print("Build")
