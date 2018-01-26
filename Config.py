@@ -22,5 +22,11 @@ class Config:
     CARD_WIDTH_MM = DEFAULT_CARD_WIDTH_MM
     CARD_HEIGHT_MM = DEFAULT_CARD_HEIGHT_MM
 
+    # The following fields have to be calculated by the program:
+    CARDS_PER_PAGE = 0
+    CARD_ROWS_PER_PAGE = 0
+    CARD_COLUMNS_PER_PAGE = 0
+
+
     def __init__(self):
         pass

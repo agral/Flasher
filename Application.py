@@ -168,6 +168,23 @@ class Application(tk.Frame):
         self.lbl_summary_card_dim.grid(row=1, column=1, sticky="e")
         self.lbl_summary_card_mm.grid(row=1, column=2, sticky="w")
 
+        # Adds a 30px of margin between the columns:
+        self.lf_summary.grid_columnconfigure(3, minsize=30)
+
+        self.lbl_cardsperpage_fixed = tk.Label(
+                self.lf_summary, text="Cards per page:")
+        self.lbl_cardsperpage = tk.Label(self.lf_summary, text="-")
+        self.lbl_gridlayout_fixed_pre = tk.Label(
+                self.lf_summary, text="(arranged in a ")
+        self.lbl_gridlayout = tk.Label(self.lf_summary, text="-")
+        self.lbl_gridlayout_fixed_post = tk.Label(
+                self.lf_summary, text=" grid)")
+        self.lbl_cardsperpage_fixed.grid(
+                row=0, column=4, columnspan=2, sticky="e")
+        self.lbl_cardsperpage.grid(row=0, column=6, sticky="w")
+        self.lbl_gridlayout_fixed_pre.grid(row=1, column=4, sticky="e")
+        self.lbl_gridlayout.grid(row=1, column=5, sticky="e")
+        self.lbl_gridlayout_fixed_post.grid(row=1, column=6, sticky="w")
 
         self.btn_quit = tk.Button(
                 self, text="EXIT",
@@ -257,4 +274,16 @@ class Application(tk.Frame):
         )
         self.lbl_summary_card_dim["text"] = "{}x{}".format(
                 Config.CARD_WIDTH_MM, Config.CARD_HEIGHT_MM
+        )
+
+        Config.CARD_COLUMNS_PER_PAGE = \
+            Config.PAGE_WIDTH_MM // Config.CARD_WIDTH_MM
+        Config.CARD_ROWS_PER_PAGE = \
+            Config.PAGE_HEIGHT_MM // Config.CARD_HEIGHT_MM
+        Config.CARDS_PER_PAGE = \
+            Config.CARD_COLUMNS_PER_PAGE * Config.CARD_ROWS_PER_PAGE
+
+        self.lbl_cardsperpage["text"] = str(Config.CARDS_PER_PAGE)
+        self.lbl_gridlayout["text"] = "{}x{}".format(
+                Config.CARD_COLUMNS_PER_PAGE, Config.CARD_ROWS_PER_PAGE
         )
