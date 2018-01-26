@@ -19,6 +19,7 @@ class Application(tk.Frame):
                 height=Config.MAIN_WINDOW_HEIGHT)
         self.pack(fill="both", expand="yes")
         self.create_widgets()
+        self.recalculate_and_update_geometry()
 
     def create_widgets(self):
         # Adds the "Source data" group to the main window:
@@ -141,6 +142,32 @@ class Application(tk.Frame):
         )
         self.btn_recalculate.grid(row=0, column=2, sticky="nesw")
 
+        # Adds the "Summary" group to the "Geometry (...) setup" group:
+        self.lf_summary = tk.LabelFrame(
+                self.lf_layoutsetup, text="Summary",
+                padx=3, pady=3
+        )
+        self.lf_summary.grid(row=0, column=3, sticky="nw", padx=8)
+        self.lbl_summary_page_fixed = tk.Label(
+                self.lf_summary, text="Page geometry:")
+        self.lbl_summary_page_dim = tk.Label(
+                self.lf_summary, text="-")
+        self.lbl_summary_page_mm = tk.Label(
+                self.lf_summary, text="mm")
+        self.lbl_summary_page_fixed.grid(row=0, column=0, sticky="e")
+        self.lbl_summary_page_dim.grid(row=0, column=1, sticky="e")
+        self.lbl_summary_page_mm.grid(row=0, column=2, sticky="w")
+
+        self.lbl_summary_card_fixed = tk.Label(
+                self.lf_summary, text="Card geometry:")
+        self.lbl_summary_card_dim = tk.Label(
+                self.lf_summary, text="-")
+        self.lbl_summary_card_mm = tk.Label(
+                self.lf_summary, text="mm")
+        self.lbl_summary_card_fixed.grid(row=1, column=0, sticky="e")
+        self.lbl_summary_card_dim.grid(row=1, column=1, sticky="e")
+        self.lbl_summary_card_mm.grid(row=1, column=2, sticky="w")
+
 
         self.btn_quit = tk.Button(
                 self, text="EXIT",
@@ -224,3 +251,10 @@ class Application(tk.Frame):
         Config.PAGE_HEIGHT_MM = iph
         Config.CARD_WIDTH_MM = icw
         Config.CARD_HEIGHT_MM = ich
+
+        self.lbl_summary_page_dim["text"] = "{}x{}".format(
+                Config.PAGE_WIDTH_MM, Config.PAGE_HEIGHT_MM
+        )
+        self.lbl_summary_card_dim["text"] = "{}x{}".format(
+                Config.CARD_WIDTH_MM, Config.CARD_HEIGHT_MM
+        )
