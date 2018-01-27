@@ -11,8 +11,12 @@ class Config:
     PATH_SOURCEDATA = None
     RAW_DATA = []
 
-    DEFAULT_PDF_FILENAME = "output.pdf"
     DIR_OUTPUT_DEFAULT = os.path.join(DIR_APP_ROOT, "out")
+    DEFAULT_LATEX_FILENAME = "output.tex"
+    LATEX_TARGET_FILE = os.path.join(
+            DIR_OUTPUT_DEFAULT, DEFAULT_LATEX_FILENAME)
+    DEFAULT_PDF_FILENAME = "output.pdf"
+    PDF_TARGET_FILE = os.path.join(DIR_OUTPUT_DEFAULT, DEFAULT_PDF_FILENAME)
 
     DEFAULT_PAGE_WIDTH_MM = 297
     DEFAULT_PAGE_HEIGHT_MM = 210
@@ -28,7 +32,6 @@ class Config:
     CARDS_PER_PAGE = 0
     CARD_ROWS_PER_PAGE = 0
     CARD_COLUMNS_PER_PAGE = 0
-
 
     def __init__(self):
         pass
