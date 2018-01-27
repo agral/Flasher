@@ -10,8 +10,6 @@ class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
 
-        self.outfile_path = Config.DIR_OUTPUT_DEFAULT
-
         master.minsize(
                 width=Config.MAIN_WINDOW_WIDTH,
                 height=Config.MAIN_WINDOW_HEIGHT)
@@ -47,7 +45,7 @@ class Application(tk.Frame):
         )
         self.lf_outputdir.pack(padx=5, pady=5, fill="x")
         self.lbl_outputdir = tk.Label(
-                self.lf_outputdir, text=self.outfile_path)
+                self.lf_outputdir, text=Config.DIR_OUTPUT)
         self.lbl_outputdir.grid(row=0, column=0, sticky="w")
         self.btn_setoutputdir = tk.Button(
                 self.lf_outputdir, text="Change",
@@ -206,10 +204,10 @@ class Application(tk.Frame):
         self.lbl_sourcedata["text"] = Config.PATH_SOURCEDATA or "(none)"
 
     def invoke_setoutputdir_dialog(self):
-        self.outfile_path = tk.filedialog.askdirectory(
-                initialdir=self.outfile_path,
+        Config.DIR_OUTPUT = tk.filedialog.askdirectory(
+                initialdir=Config.DIR_OUTPUT,
                 title="Select output directory")
-        self.lbl_outputdir["text"] = self.outfile_path or "(none)"
+        self.lbl_outputdir["text"] = Config.DIR_OUTPUT or "(none)"
 
     def invoke_import(self):
         if Config.PATH_SOURCEDATA is None:
@@ -294,6 +292,14 @@ class Application(tk.Frame):
         )
 
     def cb_build(self):
+        if Config.DIR_OUTPUT is None or len(Config.DIR_OUTPUT) == 0:
+            tk.messagebox.showerror(
+                    "Failure",
+                    "The output directory has not been selected. " +
+                    "Please select an output directory first."
+            )
+            return
+
         if len(Config.RAW_DATA) == 0:
             tk.messagebox.showerror(
                     "Failure",
@@ -301,4 +307,5 @@ class Application(tk.Frame):
                     "Please import the data first."
             )
             return
-        print("Build")
+
+        print(Config.DIR_OUTPUT)
