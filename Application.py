@@ -3,6 +3,7 @@ from tkinter import filedialog
 from tkinter import messagebox
 
 from Config import Config
+from LatexBuilder import LatexBuilder
 from Utils import *
 
 
@@ -308,4 +309,5 @@ class Application(tk.Frame):
             )
             return
 
-        print(Config.DIR_OUTPUT)
+        lb = LatexBuilder()
+        lb.write_to_file()

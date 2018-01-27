@@ -39,8 +39,17 @@ class LatexBuilder:
                 expected_pages
         ))
 
-        # TODO: implement the actual page generation
-        print("Omitting the not-implemented-yet page generation.")
+
+        with open(Config.LATEX_TARGET_FILE, "w") as outfile:
+            outfile.write(self.PREAMBLE_FIXED)
+            outfile.write(self.DOCUMENT_HEADER)
+            outfile.write("testing \\tiny{testing} \\huge{testing}\n")
+            outfile.write(self.DOCUMENT_FOOTER)
+
+        os.system("pdflatex --output-directory \"{}\" \"{}\"".format(
+                Config.DIR_OUTPUT,
+                Config.LATEX_TARGET_FILE
+        ))
 
         print("Done.")
 
