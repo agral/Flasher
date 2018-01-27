@@ -10,9 +10,7 @@ class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
 
-        self.sourcedata_path = None
         self.outfile_path = Config.DIR_OUTPUT_DEFAULT
-        self.raw_data = []
 
         master.minsize(
                 width=Config.MAIN_WINDOW_WIDTH,
@@ -199,12 +197,13 @@ class Application(tk.Frame):
         self.btn_quit.pack(side="bottom")
 
     def invoke_sourcedata_dialog(self):
-        self.sourcedata_path = tk.filedialog.askopenfilename(
+
+        Config.PATH_SOURCEDATA = tk.filedialog.askopenfilename(
                 initialdir=Config.DIR_INPUT_DEFAULT,
                 title="Select source data file",
                 filetypes=(("CSV files", "*.csv"), ("All files", "*.*"))
         )
-        self.lbl_sourcedata["text"] = self.sourcedata_path or "(none)"
+        self.lbl_sourcedata["text"] = Config.PATH_SOURCEDATA or "(none)"
 
     def invoke_setoutputdir_dialog(self):
         self.outfile_path = tk.filedialog.askdirectory(
@@ -213,21 +212,21 @@ class Application(tk.Frame):
         self.lbl_outputdir["text"] = self.outfile_path or "(none)"
 
     def invoke_import(self):
-        if self.sourcedata_path is None:
+        if Config.PATH_SOURCEDATA is None:
             tk.messagebox.showinfo(
                     "Failure",
                     "Please select the input file first."
             )
         else:
-            self.raw_data = import_CSV_data_from_file(
-                    self.sourcedata_path,
+            Config.RAW_DATA = import_CSV_data_from_file(
+                    Config.PATH_SOURCEDATA,
                     separator="|",
                     comment_token="#")
 
             tk.messagebox.showinfo(
                     "Success",
                     "Successfully imported {} records.".format(
-                            len(self.raw_data))
+                            len(Config.RAW_DATA))
             )
 
     def recalculate_and_update_geometry(self):
@@ -295,4 +294,11 @@ class Application(tk.Frame):
         )
 
     def cb_build(self):
+        if len(Config.RAW_DATA) == 0:
+            tk.messagebox.showerror(
+                    "Failure",
+                    "There is no data to process.\n" +
+                    "Please import the data first."
+            )
+            return
         print("Build")

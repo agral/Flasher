@@ -47,6 +47,5 @@ def import_CSV_data_from_file(filename, separator=",", comment_token=None):
                                 assumed_separators_count, separators_count)
                         raise RuntimeError(msg)
                 fields = line.split(separator)
-                print(fields)
                 result.append(fields)
     return result
