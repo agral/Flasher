@@ -31,19 +31,44 @@ class LatexBuilder:
 
     def __init__(self):
         self.preamble_userdefined = ""
+        self.face_header = ""
+        self.face_footer = ""
+        self.reverse_header = ""
+        self.reverse_footer = ""
+
+    def recalculate_headers_and_footers(self):
+        one_cell_tabular = "| M{{{:d}mm}} ".format(Config.CARD_WIDTH_MM)
+        cells_tabular = one_cell_tabular * Config.CARD_COLUMNS_PER_PAGE
+        inner_tabular = cells_tabular + "| @{}m{0pt}@{}"
+
+        self.face_header="""\
+  \\begin{table}
+    \\centering
+    \\begin{tabular}{ """ + inner_tabular + """ }
+"""
+        self.face_footer = """
+    \\end{tabular}
+  \\end{table}
+"""
+        print(self.face_header)
+        print(self.face_footer)
 
     def write_to_file(self, output_file=Config.LATEX_TARGET_FILE):
+        self.recalculate_headers_and_footers()
         expected_pages = len(Config.RAW_DATA) // Config.CARDS_PER_PAGE
+
         os.makedirs(Config.DIR_OUTPUT, exist_ok=True)
         print("Writing {} double-sided pages of output.".format(
                 expected_pages
         ))
 
-
         with open(Config.LATEX_TARGET_FILE, "w") as outfile:
             outfile.write(self.PREAMBLE_FIXED)
             outfile.write(self.DOCUMENT_HEADER)
-            outfile.write("testing \\tiny{testing} \\huge{testing}\n")
+
+            for page in range(expected_pages):
+                print("Page")
+
             outfile.write(self.DOCUMENT_FOOTER)
 
         os.system("pdflatex --output-directory \"{}\" \"{}\"".format(
