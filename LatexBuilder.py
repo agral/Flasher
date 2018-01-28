@@ -82,7 +82,34 @@ class LatexBuilder:
             outfile.write(self.DOCUMENT_HEADER)
 
             for page in range(expected_pages):
-                print("Page")
+                face_page_contents = []
+                reverse_page_contents = []
+                for r in range(Config.CARD_ROWS_PER_PAGE):
+                    face_line = ""
+                    reverse_line = ""
+                    for p in range(Config.CARD_COLUMNS_PER_PAGE):
+                        face_line += "{:s} & ".format("x")
+                        reverse_line += "{:s} & ".format("y")
+                    face_line += "\\\\[{:d}mm]".format(Config.CARD_HEIGHT_MM)
+                    face_page_contents.append(face_line)
+                    face_page_contents.append("\\hline")
+
+                    reverse_line += "\\\\[{:d}mm]".format(
+                            Config.CARD_HEIGHT_MM)
+                    reverse_page_contents.append(reverse_line)
+
+                outfile.write(self.face_header)
+                for line in face_page_contents:
+                    outfile.write(line + "\n")
+                outfile.write(self.face_footer)
+
+                outfile.write(self.reverse_header)
+                for line in reverse_page_contents:
+                    outfile.write(line + "\n")
+                outfile.write(self.reverse_footer)
+                print("Completed setting page #{:d}/{:d}.".format(
+                        page+1, expected_pages
+                ))
 
             outfile.write(self.DOCUMENT_FOOTER)
 
