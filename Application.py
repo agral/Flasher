@@ -268,8 +268,18 @@ class Application(tk.Frame):
             )
             return
 
-        Config.PAGE_WIDTH_MM = ipw
-        Config.PAGE_HEIGHT_MM = iph
+        # Page dimensions (A4 landscape) are hardcoded right now:
+        if ipw != Config.PAGE_WIDTH_MM or iph != Config.PAGE_HEIGHT_MM:
+            tk.messagebox.showwarning(
+                    "Dimension error",
+                    "Please do not change the page geometry. It is " +
+                    "currently hardcoded to A4-landscape (297x210mm)."
+            )
+            self.edt_pagegeometry_width_text.set(str(Config.PAGE_WIDTH_MM))
+            self.edt_pagegeometry_height_text.set(str(Config.PAGE_HEIGHT_MM))
+
+        #Config.PAGE_WIDTH_MM = ipw
+        #Config.PAGE_HEIGHT_MM = iph
         Config.CARD_WIDTH_MM = icw
         Config.CARD_HEIGHT_MM = ich
 
