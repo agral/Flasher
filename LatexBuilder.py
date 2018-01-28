@@ -40,7 +40,6 @@ class LatexBuilder:
         one_cell_tabular = "| M{{{:d}mm}} ".format(Config.CARD_WIDTH_MM)
         cells_tabular = one_cell_tabular * Config.CARD_COLUMNS_PER_PAGE
         inner_tabular = cells_tabular + "| @{}m{0pt}@{}"
-
         self.face_header="""\
   \\begin{table}
     \\centering
@@ -50,8 +49,24 @@ class LatexBuilder:
     \\end{tabular}
   \\end{table}
 """
+
+        one_cell_rev_tabular = "M{{1mm}} M{{{:d}mm}} M{{1mm}} ".format(
+                Config.CARD_WIDTH_MM - 2)
+        cells_rev_tabular = one_cell_rev_tabular * Config.CARD_COLUMNS_PER_PAGE
+        inner_rev_tabular = cells_rev_tabular + "@{}m{0pt}@{}"
+        self.reverse_header = """\
+  \\begin{table}
+    \\centering
+    \\begin{tabular}{ """ + inner_rev_tabular + """ }
+"""
+        self.reverse_footer = """
+    \\end{tabular}
+  \\end{table}
+"""
         print(self.face_header)
         print(self.face_footer)
+        print(self.reverse_header)
+        print(self.reverse_footer)
 
     def write_to_file(self, output_file=Config.LATEX_TARGET_FILE):
         self.recalculate_headers_and_footers()
