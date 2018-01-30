@@ -40,7 +40,7 @@ class LatexBuilder:
         one_cell_tabular = "| M{{{:d}mm}} ".format(Config.CARD_WIDTH_MM)
         cells_tabular = one_cell_tabular * Config.CARD_COLUMNS_PER_PAGE
         inner_tabular = cells_tabular + "| @{}m{0pt}@{}"
-        self.face_header="""\
+        self.face_header = """\
   \\begin{table}
     \\centering
     \\begin{tabular}{ """ + inner_tabular + """ }
@@ -70,7 +70,9 @@ class LatexBuilder:
 
     def write_to_file(self, output_file=Config.LATEX_TARGET_FILE):
         self.recalculate_headers_and_footers()
-        expected_pages = len(Config.RAW_DATA) // Config.CARDS_PER_PAGE
+        expected_pages = int(math.ceil(
+                len(Config.RAW_DATA) / Config.CARDS_PER_PAGE
+        ))
 
         os.makedirs(Config.DIR_OUTPUT, exist_ok=True)
         print("Writing {} double-sided pages of output.".format(
@@ -119,4 +121,3 @@ class LatexBuilder:
         ))
 
         print("Done.")
-
