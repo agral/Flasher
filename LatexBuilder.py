@@ -44,6 +44,7 @@ class LatexBuilder:
   \\begin{table}
     \\centering
     \\begin{tabular}{ """ + inner_tabular + """ }
+    \\hline
 """
         self.face_footer = """
     \\end{tabular}
@@ -91,7 +92,7 @@ class LatexBuilder:
                     reverse_line = ""
                     for p in range(Config.CARD_COLUMNS_PER_PAGE):
                         face_line += "{:s} & ".format("x")
-                        reverse_line += "{:s} & ".format("y")
+                        reverse_line += " & {:s} & & ".format("y")
                     face_line += "\\\\[{:d}mm]".format(Config.CARD_HEIGHT_MM)
                     face_page_contents.append(face_line)
                     face_page_contents.append("\\hline")
