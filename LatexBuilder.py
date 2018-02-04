@@ -4,6 +4,7 @@ from Config import Config
 import math
 import os
 
+
 class LatexBuilder:
     """ Builds a LaTeX code which, when compiled, generates a PDF file
         with flashcards containing the loaded data.
@@ -91,8 +92,26 @@ class LatexBuilder:
                     face_line = ""
                     reverse_line = ""
                     for p in range(Config.CARD_COLUMNS_PER_PAGE):
-                        face_line += "{:s} & ".format("x")
-                        reverse_line += " & {:s} & & ".format("y")
+                        datum_face_index = (
+                                page * Config.CARDS_PER_PAGE +
+                                r * Config.CARD_ROWS_PER_PAGE +
+                                p
+                        )
+                        datum_reverse_index = (
+                                page * Config.CARDS_PER_PAGE +
+                                r * Config.CARD_ROWS_PER_PAGE +
+                                Config.CARD_COLUMNS_PER_PAGE - 1 - p
+                        )
+                        face_contents = Config.RAW_DATA[datum_face_index][0] \
+                            if datum_face_index < len(Config.RAW_DATA) else ""
+                        reverse_contents = \
+                            Config.RAW_DATA[datum_reverse_index][1] \
+                            if datum_reverse_index < len(Config.RAW_DATA) \
+                            else ""
+
+                        face_line += "{:s} & ".format(face_contents)
+                        reverse_line += " & {:s} & & ".format(reverse_contents)
+
                     face_line += "\\\\[{:d}mm]".format(Config.CARD_HEIGHT_MM)
                     face_page_contents.append(face_line)
                     face_page_contents.append("\\hline")
