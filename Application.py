@@ -168,6 +168,10 @@ class Application(tk.Frame):
                 self.lf_summary, text="Total cards' space: -")
         self.lbl_summary_totalcardsspace.grid(row=0, column=2, sticky="w")
 
+        self.lbl_summary_pagepercentage = tk.Label(
+                self.lf_summary, text="(-% of the entire page)")
+        self.lbl_summary_pagepercentage.grid(row=1, column=2, sticky="w")
+
         self.btn_golatex = tk.Button(
                 self, text="Go",
                 command=self.cb_build
@@ -277,6 +281,10 @@ class Application(tk.Frame):
 
         Config.TOTAL_CARDS_SPACE_WIDTH_MM = icw * Config.CARD_COLUMNS_PER_PAGE
         Config.TOTAL_CARDS_SPACE_HEIGHT_MM = ich * Config.CARD_ROWS_PER_PAGE
+        Config.TOTAL_CARDS_AREA_MM2 = (
+                Config.TOTAL_CARDS_SPACE_WIDTH_MM *
+                Config.TOTAL_CARDS_SPACE_HEIGHT_MM
+        )
 
         # Updates the contents of the GUI labels:
         self.lbl_summary_pagegeometry["text"] = \
@@ -297,6 +305,10 @@ class Application(tk.Frame):
             "Total cards' space: {}x{} mm".format(
                     Config.TOTAL_CARDS_SPACE_WIDTH_MM,
                     Config.TOTAL_CARDS_SPACE_HEIGHT_MM
+            )
+        self.lbl_summary_pagepercentage["text"] = \
+            "({:.2f}% of the entire page)".format(
+                    100 * Config.TOTAL_CARDS_AREA_MM2 / Config.PAGE_AREA_MM2
             )
 
     def cb_build(self):
