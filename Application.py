@@ -145,43 +145,23 @@ class Application(tk.Frame):
                 padx=3, pady=3
         )
         self.lf_summary.grid(row=0, column=3, sticky="nw", padx=8)
-        self.lbl_summary_page_fixed = tk.Label(
-                self.lf_summary, text="Page geometry:")
-        self.lbl_summary_page_dim = tk.Label(
-                self.lf_summary, text="-")
-        self.lbl_summary_page_mm = tk.Label(
-                self.lf_summary, text="mm")
-        self.lbl_summary_page_fixed.grid(row=0, column=0, sticky="e")
-        self.lbl_summary_page_dim.grid(row=0, column=1, sticky="e")
-        self.lbl_summary_page_mm.grid(row=0, column=2, sticky="w")
+        self.lbl_summary_pagegeometry = tk.Label(
+                self.lf_summary, text="Page geometry: -")
+        self.lbl_summary_pagegeometry.grid(row=0, column=0, sticky="w")
 
-        self.lbl_summary_card_fixed = tk.Label(
-                self.lf_summary, text="Card geometry:")
-        self.lbl_summary_card_dim = tk.Label(
-                self.lf_summary, text="-")
-        self.lbl_summary_card_mm = tk.Label(
-                self.lf_summary, text="mm")
-        self.lbl_summary_card_fixed.grid(row=1, column=0, sticky="e")
-        self.lbl_summary_card_dim.grid(row=1, column=1, sticky="e")
-        self.lbl_summary_card_mm.grid(row=1, column=2, sticky="w")
+        self.lbl_summary_cardgeometry = tk.Label(
+                self.lf_summary, text="Card geometry: -")
+        self.lbl_summary_cardgeometry.grid(row=1, column=0, sticky="w")
 
         # Adds a 30px of margin between the columns:
         self.lf_summary.grid_columnconfigure(3, minsize=30)
 
-        self.lbl_cardsperpage_fixed = tk.Label(
-                self.lf_summary, text="Cards per page:")
-        self.lbl_cardsperpage = tk.Label(self.lf_summary, text="-")
-        self.lbl_gridlayout_fixed_pre = tk.Label(
-                self.lf_summary, text="(arranged in a ")
-        self.lbl_gridlayout = tk.Label(self.lf_summary, text="-")
-        self.lbl_gridlayout_fixed_post = tk.Label(
-                self.lf_summary, text=" grid)")
-        self.lbl_cardsperpage_fixed.grid(
-                row=0, column=4, columnspan=2, sticky="e")
-        self.lbl_cardsperpage.grid(row=0, column=6, sticky="w")
-        self.lbl_gridlayout_fixed_pre.grid(row=1, column=4, sticky="e")
-        self.lbl_gridlayout.grid(row=1, column=5, sticky="e")
-        self.lbl_gridlayout_fixed_post.grid(row=1, column=6, sticky="w")
+        self.lbl_summary_cardsperpage = tk.Label(
+                self.lf_summary, text="Cards per page: -")
+        self.lbl_summary_grid = tk.Label(
+                self.lf_summary, text="(arranged in a - grid")
+        self.lbl_summary_cardsperpage.grid(row=0, column=4, sticky="w")
+        self.lbl_summary_grid.grid(row=1, column=4, sticky="w")
 
         self.btn_golatex = tk.Button(
                 self, text="Go",
@@ -278,17 +258,19 @@ class Application(tk.Frame):
             self.edt_pagegeometry_width_text.set(str(Config.PAGE_WIDTH_MM))
             self.edt_pagegeometry_height_text.set(str(Config.PAGE_HEIGHT_MM))
 
-        #Config.PAGE_WIDTH_MM = ipw
-        #Config.PAGE_HEIGHT_MM = iph
+        # --Config.PAGE_WIDTH_MM = ipw
+        # --Config.PAGE_HEIGHT_MM = iph
         Config.CARD_WIDTH_MM = icw
         Config.CARD_HEIGHT_MM = ich
 
-        self.lbl_summary_page_dim["text"] = "{}x{}".format(
-                Config.PAGE_WIDTH_MM, Config.PAGE_HEIGHT_MM
-        )
-        self.lbl_summary_card_dim["text"] = "{}x{}".format(
-                Config.CARD_WIDTH_MM, Config.CARD_HEIGHT_MM
-        )
+        self.lbl_summary_pagegeometry["text"] = \
+            "Page geometry: {}x{} mm".format(
+                    Config.PAGE_WIDTH_MM, Config.PAGE_HEIGHT_MM
+            )
+        self.lbl_summary_cardgeometry["text"] = \
+            "Card geometry: {}x{} mm".format(
+                    Config.CARD_WIDTH_MM, Config.CARD_HEIGHT_MM
+            )
 
         Config.CARD_COLUMNS_PER_PAGE = \
             Config.PAGE_WIDTH_MM // Config.CARD_WIDTH_MM
@@ -297,10 +279,12 @@ class Application(tk.Frame):
         Config.CARDS_PER_PAGE = \
             Config.CARD_COLUMNS_PER_PAGE * Config.CARD_ROWS_PER_PAGE
 
-        self.lbl_cardsperpage["text"] = str(Config.CARDS_PER_PAGE)
-        self.lbl_gridlayout["text"] = "{}x{}".format(
-                Config.CARD_COLUMNS_PER_PAGE, Config.CARD_ROWS_PER_PAGE
-        )
+        self.lbl_summary_cardsperpage["text"] = \
+            "Cards per page: {}".format(Config.CARDS_PER_PAGE)
+        self.lbl_summary_grid["text"] = \
+            "(arranged in a {}x{} grid)".format(
+                    Config.CARD_COLUMNS_PER_PAGE, Config.CARD_ROWS_PER_PAGE
+            )
 
     def cb_build(self):
         if Config.DIR_OUTPUT is None or len(Config.DIR_OUTPUT) == 0:
