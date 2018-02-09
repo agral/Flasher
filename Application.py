@@ -164,6 +164,9 @@ class Application(tk.Frame):
         # Adds a 30px of margin between the columns:
         self.lf_summary.grid_columnconfigure(1, minsize=30)
 
+        self.lbl_summary_totalcardsspace = tk.Label(
+                self.lf_summary, text="Total cards' space: -")
+        self.lbl_summary_totalcardsspace.grid(row=0, column=2, sticky="w")
 
         self.btn_golatex = tk.Button(
                 self, text="Go",
@@ -265,6 +268,17 @@ class Application(tk.Frame):
         Config.CARD_WIDTH_MM = icw
         Config.CARD_HEIGHT_MM = ich
 
+        Config.CARD_COLUMNS_PER_PAGE = \
+            Config.PAGE_WIDTH_MM // Config.CARD_WIDTH_MM
+        Config.CARD_ROWS_PER_PAGE = \
+            Config.PAGE_HEIGHT_MM // Config.CARD_HEIGHT_MM
+        Config.CARDS_PER_PAGE = \
+            Config.CARD_COLUMNS_PER_PAGE * Config.CARD_ROWS_PER_PAGE
+
+        Config.TOTAL_CARDS_SPACE_WIDTH_MM = icw * Config.CARD_COLUMNS_PER_PAGE
+        Config.TOTAL_CARDS_SPACE_HEIGHT_MM = ich * Config.CARD_ROWS_PER_PAGE
+
+        # Updates the contents of the GUI labels:
         self.lbl_summary_pagegeometry["text"] = \
             "Page geometry: {}x{} mm".format(
                     Config.PAGE_WIDTH_MM, Config.PAGE_HEIGHT_MM
@@ -273,19 +287,16 @@ class Application(tk.Frame):
             "Card geometry: {}x{} mm".format(
                     Config.CARD_WIDTH_MM, Config.CARD_HEIGHT_MM
             )
-
-        Config.CARD_COLUMNS_PER_PAGE = \
-            Config.PAGE_WIDTH_MM // Config.CARD_WIDTH_MM
-        Config.CARD_ROWS_PER_PAGE = \
-            Config.PAGE_HEIGHT_MM // Config.CARD_HEIGHT_MM
-        Config.CARDS_PER_PAGE = \
-            Config.CARD_COLUMNS_PER_PAGE * Config.CARD_ROWS_PER_PAGE
-
         self.lbl_summary_cardsperpage["text"] = \
             "Cards per page: {}".format(Config.CARDS_PER_PAGE)
         self.lbl_summary_grid["text"] = \
             "(arranged in a {}x{} grid)".format(
                     Config.CARD_COLUMNS_PER_PAGE, Config.CARD_ROWS_PER_PAGE
+            )
+        self.lbl_summary_totalcardsspace["text"] = \
+            "Total cards' space: {}x{} mm".format(
+                    Config.TOTAL_CARDS_SPACE_WIDTH_MM,
+                    Config.TOTAL_CARDS_SPACE_HEIGHT_MM
             )
 
     def cb_build(self):
