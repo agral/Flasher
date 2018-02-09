@@ -153,15 +153,17 @@ class Application(tk.Frame):
                 self.lf_summary, text="Card geometry: -")
         self.lbl_summary_cardgeometry.grid(row=1, column=0, sticky="w")
 
-        # Adds a 30px of margin between the columns:
-        self.lf_summary.grid_columnconfigure(3, minsize=30)
-
         self.lbl_summary_cardsperpage = tk.Label(
                 self.lf_summary, text="Cards per page: -")
+        self.lbl_summary_cardsperpage.grid(row=2, column=0, sticky="w")
+
         self.lbl_summary_grid = tk.Label(
                 self.lf_summary, text="(arranged in a - grid")
-        self.lbl_summary_cardsperpage.grid(row=0, column=4, sticky="w")
-        self.lbl_summary_grid.grid(row=1, column=4, sticky="w")
+        self.lbl_summary_grid.grid(row=3, column=0, sticky="w")
+
+        # Adds a 30px of margin between the columns:
+        self.lf_summary.grid_columnconfigure(1, minsize=30)
+
 
         self.btn_golatex = tk.Button(
                 self, text="Go",
