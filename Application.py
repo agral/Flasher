@@ -102,7 +102,7 @@ class Application(tk.Frame):
                 self.lf_layoutsetup, text="Card geometry",
                 padx=3, pady=3
         )
-        self.lf_cardgeometry.grid(row=0, column=1, sticky="nw", padx=8)
+        self.lf_cardgeometry.grid(row=0, column=1, sticky="nw", padx=(5,0))
 
         self.lbl_cardgeometry_width = tk.Label(
                 self.lf_cardgeometry, text="Width:")
@@ -134,17 +134,19 @@ class Application(tk.Frame):
 
         # Adds the button to recalculate the geometry:
         self.btn_recalculate = tk.Button(
-                self.lf_layoutsetup, text="Recalculate",
+                self.lf_layoutsetup, text="Apply",
                 command=self.recalculate_and_update_geometry
         )
-        self.btn_recalculate.grid(row=0, column=2, sticky="nesw")
+        self.btn_recalculate.grid(
+                row=1, column=0, columnspan=2, sticky="nesw", pady=(5,0)
+        )
 
         # Adds the "Summary" group to the "Geometry (...) setup" group:
         self.lf_summary = tk.LabelFrame(
                 self.lf_layoutsetup, text="Summary",
                 padx=3, pady=3
         )
-        self.lf_summary.grid(row=0, column=3, sticky="nw", padx=8)
+        self.lf_summary.grid(row=0, column=2, rowspan=2, sticky="nw", padx=8)
         self.lbl_summary_pagegeometry = tk.Label(
                 self.lf_summary, text="Page geometry: -")
         self.lbl_summary_pagegeometry.grid(row=0, column=0, sticky="w")
