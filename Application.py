@@ -177,6 +177,15 @@ class Application(tk.Frame):
                 self.lf_summary, text="(-% of the entire page)")
         self.lbl_summary_pagepercentage.grid(row=1, column=2, sticky="w")
 
+        self.lbl_summary_marginleftright = tk.Label(
+                self.lf_summary, text="Left and right margin: -")
+        self.lbl_summary_marginleftright.grid(row=3, column=2, sticky="w")
+
+        self.lbl_summary_margintopbottom = tk.Label(
+                self.lf_summary, text="Top and bottom margin: -")
+        self.lbl_summary_margintopbottom.grid(row=2, column=2, sticky="w")
+
+
         self.btn_golatex = tk.Button(
                 self, text="Go",
                 command=self.cb_build
@@ -291,6 +300,11 @@ class Application(tk.Frame):
                 Config.TOTAL_CARDS_SPACE_HEIGHT_MM
         )
 
+        Config.PAGE_MARGIN_LEFTRIGHT = \
+            (Config.PAGE_WIDTH_MM - Config.TOTAL_CARDS_SPACE_WIDTH_MM) / 2
+        Config.PAGE_MARGIN_TOPBOTTOM = \
+            (Config.PAGE_HEIGHT_MM - Config.TOTAL_CARDS_SPACE_HEIGHT_MM) / 2
+
         # Updates the contents of the GUI labels:
         self.lbl_summary_pagegeometry["text"] = \
             "Page geometry: {}x{} mm".format(
@@ -314,6 +328,14 @@ class Application(tk.Frame):
         self.lbl_summary_pagepercentage["text"] = \
             "({:.2f}% of the entire page)".format(
                     100 * Config.TOTAL_CARDS_AREA_MM2 / Config.PAGE_AREA_MM2
+            )
+        self.lbl_summary_marginleftright["text"] = \
+            "Left and right margin: {:.1f} mm".format(
+                    Config.PAGE_MARGIN_LEFTRIGHT
+            )
+        self.lbl_summary_margintopbottom["text"] = \
+            "Top and bottom margin: {:.1f} mm".format(
+                    Config.PAGE_MARGIN_TOPBOTTOM
             )
 
     def cb_build(self):

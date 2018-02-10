@@ -38,6 +38,8 @@ class Config:
     TOTAL_CARDS_SPACE_WIDTH_MM = 0
     TOTAL_CARDS_SPACE_HEIGHT_MM = 0
     TOTAL_CARDS_AREA_MM2 = 0
+    PAGE_MARGIN_TOPBOTTOM = 0
+    PAGE_MARGIN_LEFTRIGHT = 0
 
     def __init__(self):
         pass
