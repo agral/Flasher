@@ -141,12 +141,15 @@ class Application(tk.Frame):
                 row=1, column=0, columnspan=2, sticky="nesw", pady=(5,0)
         )
 
+        # Adds a 15px of empty space between the groups:
+        self.lf_layoutsetup.grid_columnconfigure(2, minsize=15)
+
         # Adds the "Summary" group to the "Geometry (...) setup" group:
         self.lf_summary = tk.LabelFrame(
                 self.lf_layoutsetup, text="Summary",
                 padx=3, pady=3
         )
-        self.lf_summary.grid(row=0, column=2, rowspan=2, sticky="nw", padx=8)
+        self.lf_summary.grid(row=0, column=3, rowspan=2, sticky="nw", padx=8)
         self.lbl_summary_pagegeometry = tk.Label(
                 self.lf_summary, text="Page geometry: -")
         self.lbl_summary_pagegeometry.grid(row=0, column=0, sticky="w")
