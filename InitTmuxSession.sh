@@ -3,23 +3,28 @@
 SCRIPT_NAME="$(basename "${0}")"
 SESSION_NAME="Flasher"
 
-colorNONE="\033[0m"       # resets color to terminal's FG color.
-colorK="\033[0;30m"       # regular black
-colorR="\033[0;31m"       # regular red
-colorG="\033[0;32m"       # regular green
-colorY="\033[0;33m"       # regular yellow
-colorB="\033[0;34m"       # regular blue
-colorM="\033[0;35m"       # regular magenta
-colorC="\033[0;36m"       # regular cyan
-colorW="\033[0;37m"       # regular white
-colorKEM="\033[1;30m"     # bold black
-colorREM="\033[1;31m"     # bold red
-colorGEM="\033[1;32m"     # bold green
-colorYEM="\033[1;33m"     # bold yellow
-colorBEM="\033[1;34m"     # bold blue
-colorMEM="\033[1;35m"     # bold magenta
-colorCEM="\033[1;36m"     # bold cyan
-colorWEM="\033[1;37m"     # bold white
+# Should the bash color-codes be used in the output? (true/false)
+USE_BASH_COLORS=true
+
+if [ "${USE_BASH_COLORS}" = true ]; then
+  colorNONE="\033[0m"       # resets color to terminal's FG color.
+  colorK="\033[0;30m"       # regular black
+  colorR="\033[0;31m"       # regular red
+  colorG="\033[0;32m"       # regular green
+  colorY="\033[0;33m"       # regular yellow
+  colorB="\033[0;34m"       # regular blue
+  colorM="\033[0;35m"       # regular magenta
+  colorC="\033[0;36m"       # regular cyan
+  colorW="\033[0;37m"       # regular white
+  colorKEM="\033[1;30m"     # bold black
+  colorREM="\033[1;31m"     # bold red
+  colorGEM="\033[1;32m"     # bold green
+  colorYEM="\033[1;33m"     # bold yellow
+  colorBEM="\033[1;34m"     # bold blue
+  colorMEM="\033[1;35m"     # bold magenta
+  colorCEM="\033[1;36m"     # bold cyan
+  colorWEM="\033[1;37m"     # bold white
+fi
 
 function fail_self_test
 {
@@ -48,3 +53,5 @@ else
 fi
 
 printf "%s ${colorG}%s${colorNONE}%s\n" "Self-check" "passed" "."
+
+tmux new-session -d -s "${SESSION_NAME}"
