@@ -45,7 +45,7 @@ fi
 
 printf " --> %s \"${colorC}%s${colorNONE}\" %s " \
     "Checking whether session" "Flasher" "exists..."
-if [ tmux has-session -t "${SESSION_NAME}" 2>/dev/null ]; then
+if (tmux has-session -t "${SESSION_NAME}" 2>/dev/null); then
   printf "${colorR}%s${colorNONE}%s\n" "YES" "."
   fail_self_test
 else
